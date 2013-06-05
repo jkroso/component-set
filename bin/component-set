@@ -1,0 +1,83 @@
+#!/usr/bin/env node
+
+var Promise = require('laissez-faire/full')
+  , ghtag = require('github-latest')
+  , program = require('commander')
+  , log = require('./logger')
+  , fs = require('fs')
+
+log.enable('info')
+
+program
+	.usage('[options] <pkg>')
+	.description('add a package to this packages component.json')
+	.option('-d, --development', 'add as a development dependency')
+	.on('--help', function(){
+		print('  Examples:')
+		print('')
+		print('    # explicit')
+		print('    $ component set jkroso/emitter')
+		print('')
+	})
+
+program.parse(process.argv)
+
+if (!program.args.length) program.help()
+
+var file = process.cwd() + '/component.json'
+var kv = program.args[0]
+
+parseKeyValue(kv).read(function(kv){
+	add(kv[0], kv[1])
+})
+
+function parseKeyValue(dep){
+	var p = new Promise;
+
+	// github shorthand
+	var m = /^([-.\w]+)\/([-.\w]+)(?:@([-.\w]+|\d+\.\d+\.\d+))?$/.exec(dep)
+	if (m) {
+		var key = m[1] + '/' + m[2]
+		if (m[3]) return p.write([key, m[3]])
+		ghtag(m[1], m[2], function(e, tag){
+			if (e) log.info('error', 'unable to find the latest tag (%s)', e.message)
+			p.write([key, tag || 'master'])
+		})
+		log.info('fetching', 'latest tag for %s', key)
+	} else {
+		throw new Error('search not implemented')
+	}
+
+	return p
+}
+
+function getDeps(){
+	if (!fs.existsSync(file)) throw new Error('no component.json')
+	return JSON.parse(fs.readFileSync(file, 'utf8'))
+}
+
+/**
+ * add an entry to the component.json file
+ * 
+ * @param {String} key
+ * @param {String} url
+ */
+
+function add(key, tag){
+	var json = getDeps(file)
+
+	// --development
+	if (program.development) {
+		var deps = json.development || (json.development = {})
+	} else {
+		var deps = json.dependencies || (json.dependencies = {})
+	}
+
+	log.info(key, tag)
+	deps[key] = tag
+	fs.writeFileSync(file, JSON.stringify(json, null, 2))
+}
+
+function print(txt){
+	process.stdout.write(txt+'\n')
+}

@@ -1,0 +1,25 @@
+{
+  "name": "component-set",
+  "version": "0.1.0",
+  "description": "add dependencies to component.json",
+  "bin": {
+    "component-set": "bin/component-set"
+  },
+  "keywords": [
+    "component",
+    "plugin",
+    "component.json",
+    "dependency"
+  ],
+  "author": "Jake Rosoman<jkroso@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jkroso/component-set.git"
+  },
+  "dependencies": {
+    "laissez-faire": "~0.12.4",
+    "github-latest": "http://github.com/jkroso/github-latest/tarball/fe495ff",
+    "commander": "~1.1.1"
+  },
+  "devDependencies": {}
+}
