@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+
+var program = require('commander')
+  , each = require('foreach/async')
+  , utils = require('./utils')
+  , log = require('./logger')
+  , latest = utils.latest
+
+log.enable('info')
+
+program
+	.usage('[options]')
+	.description('update everything to the latest tag')
+	.option('-d, --development', 'add as a development dependency')
+	.option('-f, --file <name>', 'json thing', 'component.json')
+	.on('--help', function(){
+		print('  Examples:')
+		print('')
+		print('    $ component update')
+		print('')
+	})
+
+program.parse(process.argv)
+
+program.file = process.cwd() + '/' + program.file
+var kv = program.args[0]
+
+var json = utils.getDeps(program.file)
+var deps = program.development
+	? json.development
+	: json.dependencies
+
+each(deps, function(tag, pkg){
+	var ur = pkg.split('/')
+	return latest(ur[0], ur[1]).then(function(newtag){
+		if (newtag == 'master') newtag = tag
+		log.info(pkg, newtag)
+		if (newtag != tag) utils.add(pkg, newtag, program)
+	})
+}).throw()
+
+function print(txt){
+	process.stdout.write(txt+'\n')
+}

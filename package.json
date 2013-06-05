@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "description": "add dependencies to component.json",
   "bin": {
-    "component-set": "bin/component-set"
+    "component-set": "bin/component-set",
+    "component-update": "bin/component-update"
   },
   "keywords": [
     "component",
@@ -18,8 +19,9 @@
   },
   "dependencies": {
     "laissez-faire": "~0.12.4",
-    "github-latest": "http://github.com/jkroso/github-latest/tarball/fe495ff",
-    "commander": "~1.1.1"
+    "commander": "~1.1.1",
+    "foreach": "http://github.com/jkroso/forEach/tarball/0.6.0",
+    "github-latest": "http://github.com/jkroso/github-latest/tarball/fe495ff"
   },
   "devDependencies": {}
 }
