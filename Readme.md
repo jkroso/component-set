@@ -7,25 +7,20 @@
 
 _With npm_  
 
-	$ npm install component-set --save
-
-then in your app:
-
-```js
-var component-set = require('component-set')
-```
+	$ npm install component-set -g
 
 ## API
 
-- [component-set()](#component-set)
-
-### component-set()
-
-## Running the tests
-
-```bash
-$ npm install
-$ make test
 ```
+  Usage: component-set [options] <pkg>
 
-_Note: these commands don't work on windows._ 
+  Options:
+
+    -h, --help         output usage information
+    -d, --development  add as a development dependency
+
+  Examples:
+
+    # explicit
+    $ component set jkroso/emitter
+```
