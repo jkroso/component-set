@@ -1,6 +1,6 @@
 {
   "name": "component-set",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "add dependencies to component.json",
   "bin": {
     "component-set": "bin/component-set",
