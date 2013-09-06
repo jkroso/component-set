@@ -13,6 +13,7 @@ program
 	.description('update everything to their latest tag')
 	.option('-d, --development', 'don\'t update production dependencies')
 	.option('-p, --production', 'don\'t update development dependencies')
+	.option('-l, --leave-stars', 'don\'t update "*"')
 
 program.parse(process.argv)
 
@@ -25,9 +26,12 @@ if (!program.production) update('development').read()
 
 function update(key){
 	return each(json[key], function(tag, pkg){
-		if (tag == '*') return
-		var ur = pkg.split('/')
-		return latest(ur[0], ur[1]).then(function(newtag){
+		if (tag == '*' && program.leaveStars) {
+			return log.info(pkg, '*')
+		}
+		var user = pkg.split('/')[0]
+		var repo = pkg.split('/')[1]
+		return latest(user, repo).then(function(newtag){
 			var msg = tag
 			if (newtag != 'master' && newtag != tag) {
 				msg = tag + ' -> ' + newtag
