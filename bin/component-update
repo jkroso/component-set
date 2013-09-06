@@ -28,13 +28,15 @@ function update(key){
 		if (tag == '*') return
 		var ur = pkg.split('/')
 		return latest(ur[0], ur[1]).then(function(newtag){
-			log.info(pkg, newtag)
+			var msg = tag
 			if (newtag != 'master' && newtag != tag) {
+				msg = tag + ' -> ' + newtag
 				utils.add(pkg, newtag, {
 					file: file,
 					development: key == 'development'
 				})
 			}
+			log.info(pkg, msg)
 		})
 	})
 }
