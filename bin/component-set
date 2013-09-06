@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 var program = require('commander')
-  , utils = require('./utils')
-  , log = require('./logger')
+var utils = require('./utils')
+var log = require('./logger')
 
 log.enable('info')
 

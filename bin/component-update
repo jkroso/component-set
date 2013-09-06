@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
+var each = require('foreach/async')
 var program = require('commander')
-  , each = require('foreach/async')
-  , utils = require('./utils')
-  , log = require('./logger')
-  , latest = utils.latest
+var utils = require('./utils')
+var log = require('./logger')
+var latest = utils.latest
 
 log.enable('info')
 
@@ -20,8 +20,8 @@ var file = process.cwd() + '/component.json'
 
 var json = utils.getDeps(file)
 
-if (!program.development) update('dependencies').throw()
-if (!program.production) update('development').throw()
+if (!program.development) update('dependencies').read()
+if (!program.production) update('development').read()
 
 function update(key){
 	return each(json[key], function(tag, pkg){
