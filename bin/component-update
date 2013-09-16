@@ -33,7 +33,7 @@ function update(key){
 		var repo = pkg.split('/')[1]
 		return latest(user, repo).then(function(newtag){
 			var msg = tag
-			if (newtag != 'master' && newtag != tag) {
+			if (newtag && newtag != tag) {
 				msg = tag + ' -> ' + newtag
 				utils.add(pkg, newtag, {
 					file: file,

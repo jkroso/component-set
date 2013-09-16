@@ -12,20 +12,16 @@ exports.parseKeyValue = function(dep){
 		var key = m[1] + '/' + m[2]
 		if (m[3]) return Result.wrap([key, m[3]])
 		return exports.latest(m[1], m[2]).then(function(tag){
-			if (tag == 'master') tag = '*'
-			return [key, tag]
+			return [key, tag || '*']
 		})
-	} else {
-		throw new Error('search not implemented')
 	}
+
+	throw new Error('search not implemented')
 }
 
 exports.latest = function(user, repo){
 	log.info('fetching', 'latest tag for %s/%s', user, repo)
-	return ghtag(user, repo).then(null, function(e){
-		log.info('error', 'unable to find the latest tag for %s/%s (%s)', user, repo, e.message)
-		return 'master'
-	})
+	return ghtag(user, repo)
 }
 
 exports.getDeps = function(file){
@@ -35,7 +31,7 @@ exports.getDeps = function(file){
 
 /**
  * add an entry to the component.json file
- * 
+ *
  * @param {String} key
  * @param {String} url
  */

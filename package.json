@@ -1,6 +1,6 @@
 {
   "name": "component-set",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "add dependencies to component.json",
   "bin": {
     "component-set": "bin/component-set",
@@ -22,6 +22,6 @@
     "commander": "2.0.0",
     "lift-result": "0.1.1",
     "foreach": "http://github.com/jkroso/forEach/tarball/0.8.7",
-    "github-latest": "http://github.com/jkroso/github-latest/tarball/0.2.1"
+    "github-latest": "http://github.com/jkroso/github-latest/tarball/0.3.0"
   }
 }

@@ -27,8 +27,10 @@ program.file = process.cwd() + '/' + program.file
 var kv = program.args[0]
 
 utils.parseKeyValue(kv).read(function(kv){
-	log.info(kv[0], kv[1])
-	utils.add(kv[0], kv[1], program)
+	var id  = kv[0]
+	var tag = kv[1]
+	log.info(id, tag)
+	utils.add(id, tag, program)
 })
 
 function print(txt){
