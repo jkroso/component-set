@@ -23,5 +23,8 @@
     "lift-result": "0.1.1",
     "foreach": "http://github.com/jkroso/forEach/tarball/0.8.7",
     "github-latest": "http://github.com/jkroso/github-latest/tarball/0.3.0"
-  }
+  },
+  "files": [
+    "bin"
+  ]
 }
