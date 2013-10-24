@@ -40,8 +40,13 @@ component install
 
 	$ npm install component-set -g
 
-## warning
+## Rate limiting
 
-  you may run into githubs rate limit if you run a lot of these commands in the space of an hour
+  If you find yourself running into githubs rate limit, (100requests/hr) you should consider exposing your github login details with the environment variables "GITHUB_USERNAME" and "GITHUB_PASSWORD" in order to raise your limit to 5000requests/hr.
 
+  I do it in my .bashrc file with:
 
+  ```bash
+export GITHUB_USERNAME='jkroso'
+export GITHUB_PASSWORD='xxx'
+```
